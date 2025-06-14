@@ -1,10 +1,10 @@
-*turn based combat between player and NPCs
+*turn based combat between player and Npcs
 
 different actions:
     *attacks
     *defense
     *run away
-    dodge
+    base_dodge
 
 advantage and disatvantage system based on character type:
 *equipping items
