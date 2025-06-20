@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Phantom Rogue",
+        "actions": ["attack", "dodge", "run"],
+        "attacks": ["stab"],
+        "base_hp": 10,
+        "base_defense": 0,
+        "base_dodge": 7,
+        "elements": ["ghost"],
+        "description": "Few know its origin and fewer understand its capabilities. A blur in shape of a human, an agent of darkness infused with it herself.\nWill this being be your choise of presence?"
+    },
+    {
+        "name": "placeholder_2",
+        "actions": ["attack", "defend"],
+        "attacks": ["punchholder"],
+        "base_hp": 10,
+        "base_defense": 6,
+        "base_dodge": 2,
+        "elements": ["paper"],
+        "description": "\nWill this None be your choise of presence?"
+    },
+    {
+        "name": "placeholder_2",
+        "actions": ["attack", "defend"],
+        "attacks": ["punchholder"],
+        "base_hp": 10,
+        "base_defense": 6,
+        "base_dodge": 2,
+        "elements": ["paper"],
+        "description": "\nWill this None be your choise of presence?"
+    }
+]

@@ -1,4 +1,4 @@
-from model.player import Player
+from player.model import Player
 
 class Save:
     def __init__(self, player: Player):

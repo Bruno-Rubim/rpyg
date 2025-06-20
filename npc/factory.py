@@ -1,7 +1,11 @@
 from npc.model import Npc, Enemy, Friend
+from json_importer import JsonImporter
 
 class NpcFactory:
-    def getNpc(data_object) -> Npc:
+    npc_list = JsonImporter.loadJSON('npc')
+
+    def get_npc(name: str) -> Npc:
+        data_object = JsonImporter.findByName(name)
         match data_object.get('type'):
             case 'enemy':
                 print('this is an enemy')
