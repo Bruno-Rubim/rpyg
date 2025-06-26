@@ -12,6 +12,7 @@ class Npc(ABC):
         self.type = type
         self.actions = actions
         self.base_hp = base_hp
+        self.current_hp = base_hp
         self.elements = elements
 
 class Enemy(Npc):

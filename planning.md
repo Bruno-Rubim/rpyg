@@ -1,7 +1,10 @@
 *turn based combat between player and Npcs
 
+player - singleton
+npc - factory
+
 different actions:
-    *attacks
+    *attacks - Template
     *defense
     *run away
     base_dodge
