@@ -1,7 +1,11 @@
 from player.model import Player
 from input import requestNumberChoice
 from npc.model import Enemy
+from json_importer import JsonImporter
+from attack.factory import AttackFactory
 import random
+
+attacks = JsonImporter.loadJSON('attack')
 
 class Battle():
     def __init__(self, enemy: Enemy):
@@ -9,13 +13,13 @@ class Battle():
         self.player_ran = False
         self.enemy_ran = False
         self.ended = False
+        self.player = Player(0, "")
 
     def playerBattleAction(self):
-        player = Player(0, "")
         
-        print(f"\nWhat do you do, {player.name}?\n")
+        print(f"\nWhat do you do, {self.player.name}?\n")
         
-        actions = [*player.actions]
+        actions = [*self.player.actions]
         #actions.insert(0, "end turn")
         options = ""
 
@@ -33,6 +37,10 @@ class Battle():
             case "run":
                 self.player_ran = True
                 print("You flee from battle, like a coward\n")
+            case "attack":
+                attack = JsonImporter.findByName(attacks, self.player.attacks[0])
+
+                print(f"You attacked {self.enemy.name} with {attack['name']}\n")
 
     def enemyBattleAction(self):
         actions = self.enemy.actions
@@ -46,6 +54,11 @@ class Battle():
             case "run":
                 self.enemy_ran = True
                 print(f"{self.enemy.name} flees from battle, like a coward\n")
+            case "attack":
+                attacks = self.enemy.attacks
+                attack_name = attacks[random.randint(0, len(attacks) - 1)]
+
+                print(f"{self.enemy.name} attacked you with {attack['name']}\n")
 
     def checkState(self):
         if (
