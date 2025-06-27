@@ -16,7 +16,7 @@ class NpcFactory:
                         base_hp = data_object.get('base_hp'),
                         base_dodge = data_object.get('base_dodge'),
                         base_defense = data_object.get('base_defense'),
-                        attacks = data_object.get('attacks', None),
+                        atacks = data_object.get('atacks', None),
                         elements = data_object.get('elements', []),
                         )
                 return npc

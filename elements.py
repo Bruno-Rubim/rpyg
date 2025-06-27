@@ -14,6 +14,7 @@ elements = {
     "water": Element(['fire'], ['ice']),
     "ice": Element(['water'], ['fire']),
     "fire": Element(['ice'], ['water']),
+    "ghost": Element([], []),
 }
 
 def element_efect(dealer: str, reciever: str) -> int:
@@ -23,5 +24,3 @@ def element_efect(dealer: str, reciever: str) -> int:
         return ElementResult.DISADVANTAGE.value
     else:
         return ElementResult.NONE.value
-    
-print(element_efect('ice', 'fire'))

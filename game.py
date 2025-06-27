@@ -7,8 +7,8 @@ from input import requestNumberChoice
 from npc.factory import NpcFactory
 
 def selectPlayerClass() -> Player:
-    print("""\nChose what you will be called:""")
-    name = input(">")
+    print("""\nChose what your name will be:""")
+    name = input("> ")
     print("""\nSelect your presence:""")
     player_class_amm = JsonImporter.loadJSON('player')
     for index, player_class in enumerate(player_class_amm):

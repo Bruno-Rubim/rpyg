@@ -22,12 +22,12 @@ class Enemy(Npc):
         actions,
         base_hp,
         elements,
-        attacks,
+        atacks,
         base_defense,
         base_dodge,
         ):
         super().__init__(name, type, actions, base_hp, elements)
-        self.attacks = attacks
+        self.atacks = atacks
         self.base_defense = base_defense
         self.base_dodge = base_dodge
 

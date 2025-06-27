@@ -19,10 +19,10 @@ class Player:
         self.name = name
         self.class_name = data_object.get("name")
         self.actions = data_object.get("actions", [])
-        self.attacks = data_object.get("attacks", [])
-        self.base_hp = data_object.get("base_hp")
-        self.current_hp = data_object.get("current_hp", self.base_hp)
-        self.base_dodge = data_object.get("base_dodge")
-        self.base_defense = data_object.get("base_defense")
+        self.atacks = data_object.get("atacks", [])
+        self.base_hp = int(data_object.get("base_hp"))
+        self.current_hp = int(data_object.get("current_hp", self.base_hp))
+        self.base_dodge = int(data_object.get("base_dodge"))
+        self.base_defense = int(data_object.get("base_defense"))
         self.elements = data_object.get("elements")
         self.status = []

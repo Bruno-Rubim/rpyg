@@ -1,19 +1,16 @@
 from player.model import Player
 from input import requestNumberChoice
 from npc.model import Enemy
-from json_importer import JsonImporter
-from attack.factory import AttackFactory
+from atack.factory import atackFactory
 import random
-
-attacks = JsonImporter.loadJSON('attack')
 
 class Battle():
     def __init__(self, enemy: Enemy):
+        self.player = Player(0, "")
         self.enemy = enemy
         self.player_ran = False
         self.enemy_ran = False
         self.ended = False
-        self.player = Player(0, "")
 
     def playerBattleAction(self):
         
@@ -27,6 +24,7 @@ class Battle():
             options += f"{i}) {actions[i]}  "
 
         print(f"Options:\n{options}")
+
         choice = requestNumberChoice(0, len(actions) - 1)
         print(f"You chose to {actions[choice]}\n")
         return actions[choice]
@@ -37,10 +35,10 @@ class Battle():
             case "run":
                 self.player_ran = True
                 print("You flee from battle, like a coward\n")
-            case "attack":
-                attack = JsonImporter.findByName(attacks, self.player.attacks[0])
-
-                print(f"You attacked {self.enemy.name} with {attack['name']}\n")
+            case "atack":
+                atack = atackFactory.get_atack(name=self.player.atacks[0], atacker=self.player, reciever=self.enemy)
+                message = atack.perform()
+                print(f"You atacked {self.enemy.name} with {atack.name}\nDealing {message}\n")
 
     def enemyBattleAction(self):
         actions = self.enemy.actions
@@ -54,11 +52,18 @@ class Battle():
             case "run":
                 self.enemy_ran = True
                 print(f"{self.enemy.name} flees from battle, like a coward\n")
-            case "attack":
-                attacks = self.enemy.attacks
-                attack_name = attacks[random.randint(0, len(attacks) - 1)]
+            case "atack":
+                atacks = self.enemy.atacks
+                atack_name = atacks[random.randint(0, len(atacks) - 1)]
+                atack = atackFactory.get_atack(name=atack_name, atacker=self.enemy, reciever=self.player)
+                message = atack.perform()
+                print(f"{self.enemy.name} atacked you with {atack.name}\nDealing {message}\n")
 
-                print(f"{self.enemy.name} attacked you with {attack['name']}\n")
+    def print_stats(self, whos):
+        if whos == 'player':
+            print(f"You're at {self.player.current_hp} health")
+        else:
+            print(f"{self.enemy.name} is at {self.enemy.current_hp} health")
 
     def checkState(self):
         if (
@@ -71,13 +76,21 @@ class Battle():
             self.ended = True
         pass
 
+    def do_turn(self, whos):
+        if whos == 'player':
+            self.playerBattleTurn()
+            self.print_stats('enemy')
+        else:
+            self.enemyBattleTurn()
+            self.print_stats('player')
+        self.checkState()
+
+
     def battleLoop(self):
         while (True):
-            self.playerBattleTurn()
-            self.checkState()
+            self.do_turn('player')
             if self.ended:
                 break
-            self.enemyBattleTurn()
-            self.checkState()
+            self.do_turn('enemy')
             if self.ended:
                 break

@@ -1,8 +1,8 @@
 [
     {
         "name": "Phantom Rogue",
-        "actions": ["run", "attack", "dodge"],
-        "attacks": ["stab"],
+        "actions": ["run", "atack", "dodge"],
+        "atacks": ["stab"],
         "base_hp": 10,
         "base_defense": 0,
         "base_dodge": 7,
@@ -11,8 +11,8 @@
     },
     {
         "name": "placeholder_2",
-        "actions": ["run", "attack", "defend"],
-        "attacks": ["punchholder"],
+        "actions": ["run", "atack", "defend"],
+        "atacks": ["punchholder"],
         "base_hp": 10,
         "base_defense": 6,
         "base_dodge": 2,
@@ -21,8 +21,8 @@
     },
     {
         "name": "placeholder_2",
-        "actions": ["run", "attack", "defend"],
-        "attacks": ["punchholder"],
+        "actions": ["run", "atack", "defend"],
+        "atacks": ["punchholder"],
         "base_hp": 10,
         "base_defense": 6,
         "base_dodge": 2,
