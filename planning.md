@@ -21,7 +21,7 @@
 ## Maybe:
 - Shops
 - Quests
-asdasd
+
 ## Different Locations:
 - Path System (Choices of Where to Go, Like Inscryption's Maps)
 - Character Dialogue
