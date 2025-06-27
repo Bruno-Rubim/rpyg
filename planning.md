@@ -1,26 +1,27 @@
-*turn based combat between player and Npcs
+# Turn-Based Combat Between Player and NPCs
 
-## Patterns completed/planned
-player - singleton
-npc - factory, template method
-attacks - factory
-battle - mediator
+## Patterns Completed/Planned
+- **Player** - Singleton
+- **NPC** - Factory, Template Method
+- **Attacks** - Factory
+- **Battle** - Mediator
 
-different actions:
-*atacks - Template
-*defense
-*run away
-base_dodge
+## Different Actions:
+- **Attacks** - Template
+- **Defense**
+- **Run Away**
+- **Base Dodge**
 
-advantage and disatvantage system based on character type:
-*equipping items
-*consumables
-*stattus effects (states)
-saving
+## Advantage and Disadvantage System Based on Character Type:
+- Equipping Items
+- Consumables
+- Status Effects (States)
+- Saving
 
-maybe:
-shops
-quests
-diferent locations:
-path system (choices of where to go, like inscryption's maps)
-character dialogue
+## Maybe:
+- Shops
+- Quests
+asdasd
+## Different Locations:
+- Path System (Choices of Where to Go, Like Inscryption's Maps)
+- Character Dialogue
