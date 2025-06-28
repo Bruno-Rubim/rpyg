@@ -1,40 +1,21 @@
-from game.model import Game
-from input import requestNumberChoice
 from entity.npc.model import Enemy
-import randome
+from entity.model import Entity
 
 class Battle():
     def __init__(self, enemy: Enemy):
-        self.player = Game()
+        from game.model import Game
+        self.player = Game().player
         self.enemy = enemy
 
-    # def playerBattleAction(self):
-        
-    #     print(f"\nWhat do you do, {self.player.name}?\n")
-        
-    #     actions = [*self.player.actions]
-    #     #actions.insert(0, "end turn")
-    #     options = ""
+    def get_oponent(self, caller: Entity) -> Entity:
+        from entity.player.model import Player
+        if type(caller) is Enemy:
+            return self.player
+        elif type(caller) is Player:
+            return self.enemy
 
-    #     for i in range(0, len(actions)):
-    #         options += f"{i}) {actions[i]}  "
-
-    #     print(f"Options:\n{options}")
-
-    #     choice = requestNumberChoice(0, len(actions) - 1)
-    #     print(f"You chose to {actions[choice]}\n")
-    #     return actions[choice]
-
-    # def playerBattleTurn(self):
-    #     action = self.playerBattleAction()
-    #     match action:
-    #         case "run":
-    #             self.player_ran = True
-    #             print("You flee from battle, like a coward\n")
-    #         case "atack":
-    #             atack = atackFactory.get_atack(name=self.player.atacks[0], atacker=self.player, reciever=self.enemy)
-    #             message = atack.perform()
-    #             print(f"You atacked {self.enemy.name} with {atack.name}\nDealing {message}\n")
+    def atack():
+        ...
 
     # def enemyBattleAction(self):
     #     actions = self.enemy.actions

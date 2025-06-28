@@ -1,7 +1,7 @@
-from npc.model import Npc, Enemy, Friend
+from entity.npc.model import Npc, Enemy, Friend
 from json_importer import JsonImporter
 
-npc_list = JsonImporter.loadJSON('npc')
+npc_list = JsonImporter.load_json('entity/npc')
 
 class NpcFactory:
 

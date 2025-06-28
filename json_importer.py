@@ -1,8 +1,8 @@
 import json
 
 class JsonImporter:
-    def loadJSON(fileName: str):
-        file = open(fileName + "/data.json").read()
+    def load_json(file_path: str):
+        file = open(file_path + "/data.json").read()
         return json.loads(file)
 
     def findByName(list: list, name: str):

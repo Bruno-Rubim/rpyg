@@ -2,26 +2,28 @@ from abc import ABC, abstractmethod
 from elements import element_efect, ElementResult
 from typing import final
 from battle.model import Battle
+from entity.model import Entity
 
 # Template
 # Classe abstrata de ataque com uma sequência padrão de métodos que podem ser substituidas pelas classes que à herdam
 class Atack(ABC):
     def __init__(self, 
             name: str,
-            atacker, 
-            reciever, 
+            atacker: Entity, 
             battle: Battle,
             damage = 5, 
             element = '', 
             advantage_mult = 1.5, 
             disadvantage_mult = 0.75):
         self.atacker = atacker
-        self.reciever = reciever
         self.name = name
         self.damage = damage
         self.element = element
         self.advantage_mult = advantage_mult
         self.disadvantage_mult = disadvantage_mult
+        self.battle = battle
+        self.reciever: Entity = battle.get_oponent(atacker)
+        
         self.final_damage = 0
         self.message = 0
 
@@ -48,17 +50,18 @@ class Atack(ABC):
 
     @final
     def perform(self) -> str:
-        damage = self.calc_damage()
-        return self.message
+        self.calc_damage()
+        self.write_message()
+        self.deal_damage()
 
 class Stab(Atack):
     def __init__(self, 
         atacker, 
-        reciever, 
+        battle, 
         ):
         super().__init__(
             atacker = atacker,
-            reciever = reciever, 
+            battle = battle,
             name = "stab",
             damage = 3,
             element = "ghost",
@@ -81,11 +84,11 @@ class Stab(Atack):
 class FireBreath(Atack):
     def __init__(self, 
         atacker, 
-        reciever, 
+        battle, 
         ):
         super().__init__(
             atacker = atacker, 
-            reciever = reciever, 
+            battle = battle,
             name = "fire_breath", 
             damage = 7,
             element = "fire",
@@ -96,11 +99,11 @@ class FireBreath(Atack):
 class Shoot(Atack):
     def __init__(self, 
         atacker, 
-        reciever, 
+        battle, 
         ):
         super().__init__(
             atacker = atacker, 
-            reciever = reciever, 
+            battle = battle,
             name = "shoot", 
             damage = 5,
             element = "fire",
@@ -125,11 +128,11 @@ class Shoot(Atack):
 class PunchHolder(Atack):
     def __init__(self, 
         atacker, 
-        reciever, 
+        battle, 
         ):
         super().__init__(
             atacker = atacker, 
-            reciever = reciever, 
+            battle = battle,
             name = "punchholder", 
             damage = 2,
             element = "normal",

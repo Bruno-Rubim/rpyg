@@ -1,5 +1,8 @@
-from entity.player.model import Player
 from json_importer import JsonImporter
+from interface import UI
+from entity.player.model import Player
+from entity.npc.factory import NpcFactory
+from battle.model import Battle
 
 class Game:
     instance = None
@@ -10,14 +13,15 @@ class Game:
             cls.instance = super(Game, cls).__new__(cls)
         return cls.instance
 
-    def __init__(self, username = ''):
+    def __init__(self):
         if Game.initialized:
             return
         Game.initialized = True
         self.player = None
+        self.username = None
         
-    def set_player(self, player_class_index):
-        player_classes = JsonImporter.loadJSON('player')
+    def set_player_object(self, player_class_index):
+        player_classes = JsonImporter.load_json('entity/player')
         data_object = player_classes[player_class_index]
         self.player = Player(
             actions = data_object.get("actions", []),
@@ -26,8 +30,31 @@ class Game:
             base_hp = data_object.get("base_hp", 1),
             base_dodge = data_object.get("base_dodge", 0),
             base_defense = data_object.get("base_defense", 0),
+            elements = data_object.get("elements", []),
         )
-            
+    
+    def set_new_player(self):
+        self.username = UI.promt_user("""\nChose what your name will be:""")
+        UI.print_text("""\nSelect your presence:""")
+        player_classes = JsonImporter.load_json('entity/player')
+
+        for index, player_class in enumerate(player_classes):
+            UI.print_text(f"{index + 1} - {player_class['name']}")
+        
+        option = UI.request_number_choice(1, len(player_classes))
+        self.set_player_object(option - 1)
+        UI.print_text(f"""You chose "{self.player.class_name}".\nInteresting... """)
+
+    def start_battle(self, enemy_name : str):
+        enemy = NpcFactory.get_npc(enemy_name)
+        battle = Battle(enemy)
+        self.player.battle = battle
+        self.player.battle_turn()
+
+    def start(self):
+        self.set_new_player()
+        self.start_battle('mini_turret')
+
     def save(self):
         ...
 

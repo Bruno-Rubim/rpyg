@@ -8,7 +8,10 @@
 - /atack/model.py: ataques podem implementar seus próprios métodos de cálculo de dano, ou utilizar a base
 
 ### Singleton
-- /player/model.py: cria a única instância de jogador que será utilizada durante o jogo
+- /game/model.py: cria a única instância de jogo que será utilizada
 
 ### Mediator
-- (planejado) /event
+- (planejado) /battle
+
+### Strategy
+- (planejado) /weather_effect

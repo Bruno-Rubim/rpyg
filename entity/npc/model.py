@@ -27,10 +27,11 @@ class Enemy(Npc):
         base_defense,
         base_dodge,
         ):
-        super().__init__(name, type, actions, base_hp, elements)
         self.atacks = atacks
         self.base_defense = base_defense
         self.base_dodge = base_dodge
+        self.battle = None
+        super().__init__(name, type, actions, base_hp, elements)
 
 class Friend(Npc):
     def __init__(self,
