@@ -12,17 +12,7 @@
     {
         "name": "placeholder_2",
         "actions": ["run", "atack", "defend"],
-        "atacks": ["punchholder"],
-        "base_hp": 10,
-        "base_defense": 6,
-        "base_dodge": 2,
-        "elements": ["paper"],
-        "description": "\nWill this None be your choise of presence?"
-    },
-    {
-        "name": "placeholder_2",
-        "actions": ["run", "atack", "defend"],
-        "atacks": ["punchholder"],
+        "atacks": ["punch_holder"],
         "base_hp": 10,
         "base_defense": 6,
         "base_dodge": 2,

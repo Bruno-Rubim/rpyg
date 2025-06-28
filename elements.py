@@ -15,6 +15,7 @@ elements = {
     "ice": Element(['water'], ['fire']),
     "fire": Element(['ice'], ['water']),
     "ghost": Element([], []),
+    "normal": Element([], ['normal']),
 }
 
 def element_efect(dealer: str, reciever: str) -> int:

@@ -1,19 +1,20 @@
-from abc import ABC
+from entity.model import Entity
 
-class Npc(ABC):
+class Npc(Entity):
     def __init__(self, 
         name,
-        type,
         actions,
+        type,
         base_hp,
         elements,
         ):
         self.name = name
         self.type = type
-        self.actions = actions
-        self.base_hp = base_hp
-        self.current_hp = base_hp
-        self.elements = elements
+        super().__init__(
+            actions,
+            base_hp,
+            elements
+        )
 
 class Enemy(Npc):
     def __init__(self,

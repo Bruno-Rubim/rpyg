@@ -1,4 +1,4 @@
-from atack.model import Atack, Stab, FireBreath, Shoot
+from atack.model import Atack, Stab, FireBreath, Shoot, PunchHolder
 
 class atackFactory:
     def get_atack(name: str, atacker, reciever) -> Atack:
@@ -24,5 +24,12 @@ class atackFactory:
                 )
                 return atack
             
+            case 'punch_holder':
+                atack = PunchHolder(
+                    atacker = atacker,
+                    reciever = reciever
+                )
+                return atack
+            
             case _:
-                print(f'attack "{name}" not made yet')
+                raise(f'attack "{name}" not made yet')
