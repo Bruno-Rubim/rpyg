@@ -63,4 +63,5 @@ class Player(Entity):
         UI.print_text(f"""You chose "{atacks[choice]}"\n""")
         atack_name = atacks[choice]
         atack_object: Atack = AtackFactory.get_atack(name=atack_name, atacker=self, battle=self.battle)
-        atack_object.perform()
+        effect = atack_object.perform()
+        self.battle.affect(self, effect)

@@ -39,20 +39,23 @@ class Atack(ABC):
         result = int(result)
         self.final_damage = result
 
-    def deal_damage(self):
-        print("deal_damage not yet finished")
-        #self.battle.deal_damage(self.final_damage, self.reciever)
+    def cause_effects(self):
+        ...
 
     def write_message(self):
-        self.message = str(self.final_damage) + ' damage'
+        self.message = str(self.final_damage) + ' damage to ' + self.reciever.name 
         if self.reciever.current_hp <= 0:
             self.message += ', ending its life.'
 
     @final
-    def perform(self) -> str:
+    def perform(self):
         self.calc_damage()
+        self.cause_effects()
         self.write_message()
-        self.deal_damage()
+        return {
+            'damage': self.final_damage,
+            'message': self.message
+        }
 
 class Stab(Atack):
     def __init__(self, 
@@ -79,7 +82,7 @@ class Stab(Atack):
             case ElementResult.NONE.value:
                 result = final_damage
         result = int(result)
-        return result
+        self.final_damage = result
 
 class FireBreath(Atack):
     def __init__(self, 
@@ -122,7 +125,7 @@ class Shoot(Atack):
             case ElementResult.NONE.value:
                 result = final_damage
         result = int(result)
-        return result
+        self.final_damage = result
     
 
 class PunchHolder(Atack):
@@ -151,4 +154,4 @@ class PunchHolder(Atack):
             case ElementResult.NONE.value:
                 result = final_damage
         result = int(result)
-        return result
+        self.final_damage = result
