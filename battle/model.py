@@ -7,12 +7,17 @@ class Battle():
         self.player = Game().player
         self.enemy = enemy
 
-    def get_oponent(self, caller: Entity) -> Entity:
-        from entity.player.model import Player
-        if type(caller) is Enemy:
-            return self.player
-        elif type(caller) is Player:
-            return self.enemy
+    def affect(self, inflictor, effect):
+        if inflictor is self.player:
+            self.enemy.current_hp -= effect.damage
+
+    # def playerBattleAction(self):
+        
+    #     print(f"\nWhat do you do, {self.player.name}?\n")
+        
+    #     actions = [*self.player.actions]
+    #     #actions.insert(0, "end turn")
+    #     options = ""
 
     def atack():
         ...
