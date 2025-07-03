@@ -1,9 +1,8 @@
 from atack.model import Atack, Stab, FireBreath, Shoot, PunchHolder
-from battle.model import Battle
 from entity.model import Entity
 
 class AtackFactory:
-    def get_atack(name: str, atacker: Entity, battle: Battle) -> Atack:
+    def get_atack(name: str, atacker: Entity, battle) -> Atack:
         match name:
             case 'stab':
                 atack = Stab(

@@ -22,7 +22,7 @@ class UI():
         for index in texts:
             print(index)
             length = len(index)
-            time.sleep(length/500)
+            time.sleep(length/300)
 
     def promt_user(text: str, number = False, min = 0, max = 0):
         if text:

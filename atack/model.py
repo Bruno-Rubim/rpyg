@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from elements import element_efect, ElementResult
 from typing import final
-from battle.model import Battle
 from entity.model import Entity
 
 # Template
@@ -10,7 +9,7 @@ class Atack(ABC):
     def __init__(self, 
             name: str,
             atacker: Entity, 
-            battle: Battle,
+            battle,
             damage = 5, 
             element = '', 
             advantage_mult = 1.5, 

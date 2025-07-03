@@ -2,6 +2,7 @@ from json_importer import JsonImporter
 from interface import UI
 from entity.player.model import Player
 from entity.npc.factory import NpcFactory
+from entity.npc.model import Enemy
 from battle.model import Battle
 
 class Game:
@@ -45,11 +46,24 @@ class Game:
         self.set_player_object(option - 1)
         UI.print_text(f"""You chose "{self.player.class_name}".\nInteresting... """)
 
+    def battle_turn(self, battle, enemy: Enemy):
+        if battle.over :
+            return
+        else:
+            self.player.battle_turn()
+        if battle.over :
+            return
+        else:
+            enemy.battle_turn()
+
     def start_battle(self, enemy_name : str):
         enemy = NpcFactory.get_npc(enemy_name)
         battle = Battle(enemy)
         self.player.battle = battle
-        self.player.battle_turn()
+        enemy.battle = battle
+        UI.print_text(f"\nA {enemy.name} challenges you")
+        while not battle.over:
+            self.battle_turn(battle, enemy)
 
     def start(self):
         self.set_new_player()

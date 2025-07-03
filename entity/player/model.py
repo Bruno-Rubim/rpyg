@@ -17,6 +17,7 @@ class Player(Entity):
         elements,
         ):
 
+        self.name = class_name
         self.class_name = class_name
         self.atacks = atacks
         self.base_dodge = base_dodge
@@ -30,6 +31,11 @@ class Player(Entity):
         )
     
     def battle_turn(self):
+        if self.current_hp < 1:
+            UI.print_text(f"\nYou have perished.\n")
+            self.battle.over = True
+            return
+
         UI.print_text(f"\nWhat do you do?\n")
         actions = [*self.actions]
         options = ""
@@ -44,8 +50,9 @@ class Player(Entity):
         action = actions[choice]
         match action:
             case "run":
-                self.player_ran = True
+                self.battle.flee = True
                 UI.print_text("You flee from battle, like a coward\n")
+                self.battle.over = True
             case "atack":
                 self.attack_enemy()
 
@@ -60,7 +67,7 @@ class Player(Entity):
         UI.print_text(options)
         choice = UI.promt_user('', True, 1, len(atacks))
         choice -= 1 
-        UI.print_text(f"""You chose "{atacks[choice]}"\n""")
+        UI.print_text(f"""You use "{atacks[choice]}"\n""")
         atack_name = atacks[choice]
         atack_object: Atack = AtackFactory.get_atack(name=atack_name, atacker=self, battle=self.battle)
         effect = atack_object.perform()
