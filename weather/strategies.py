@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import random
 
 class WeatherEffect(ABC):
     def __init__(self, battle):
@@ -19,3 +20,8 @@ class Mist(WeatherEffect):
         for entity in entities:
             if entity.elements.contains('ghost'):
                 entity.add_damage += 1
+
+def get_rand_strat() -> WeatherEffect:
+    strat_list = [Rain, Mist]
+    r = random.randint(0, len(strat_list) - 1)
+    return strat_list[r]

@@ -24,6 +24,7 @@ class Player(Entity):
         self.base_defense = base_defense
         self.status = []
         self.battle: Battle = None
+        self.add_damage = 0
         super().__init__(
             actions,
             base_hp,
@@ -71,4 +72,5 @@ class Player(Entity):
         atack_name = atacks[choice]
         atack_object: Atack = AtackFactory.get_atack(name=atack_name, atacker=self, battle=self.battle)
         effect = atack_object.perform()
+        effect['damage'] += self.add_damage
         self.battle.affect(self, effect)

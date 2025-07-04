@@ -5,6 +5,9 @@ from entity.npc.factory import NpcFactory
 from entity.npc.model import Enemy
 from entity.model import Entity
 from battle.model import Battle
+from weather.context import WeatherContext
+from weather.strategies import get_rand_strat
+import random
 
 class Game:
     instance = None
@@ -47,29 +50,42 @@ class Game:
         self.set_player_object(option - 1)
         UI.print_text(f"""You chose "{self.player.class_name}".\nInteresting... """)
 
-    def printStats(self, target: Entity):
+    def print_stats(self, target: Entity):
         UI.print_text(f"\n{target.name} is at {target.current_hp} hp")
 
-    def battle_turn(self, battle, enemy: Enemy):
+    def do_weather_efect(self, weather_context: WeatherContext, battle: Battle):
+        self.rand_weather_strat(battle)
+        entities = battle.get_entities()
+        weather_context.do_strat(entities)
+
+    def rand_weather_strat(self, battle: Battle):
+        r = random.randint(0, 9)
+        if r == 9:
+            battle.weather_context.set_strat(get_rand_strat())
+
+    def battle_turn(self, battle, enemy: Enemy, weather_effect):
         if battle.over :
             return
         else:
             self.player.battle_turn()
-            self.printStats(enemy)
+            self.print_stats(enemy)
+            self.do_weather_efect(weather_effect, battle)
         if battle.over :
             return
         else:
             enemy.battle_turn()
-            self.printStats(self.player)
+            self.print_stats(self.player)
+            self.do_weather_efect(weather_effect, battle)
 
     def start_battle(self, enemy_name : str):
         enemy = NpcFactory.get_npc(enemy_name)
-        battle = Battle(enemy)
+        weather_context = WeatherContext()
+        battle = Battle(enemy, weather_context)
         self.player.battle = battle
         enemy.battle = battle
         UI.print_text(f"\nA {enemy.name} challenges you")
         while not battle.over:
-            self.battle_turn(battle, enemy)
+            self.battle_turn(battle, enemy, weather_context)
 
     def start(self):
         self.set_new_player()
