@@ -3,17 +3,20 @@ from entity.model import Entity
 from interface import UI
 from weather.context import WeatherContext
 from weather.strategies import get_rand_strat
-import random
+
+# Mediator
+# Abstrai a comunicação direta entre objetos
+# Possúi um metodo para receber informações de objetos que é usada para afetar os demais
 
 class Battle():
-    def __init__(self, enemy: Enemy, weather_context: WeatherContext):
+    def __init__(self, enemy: Enemy):
         from game.model import Game
         self.player = Game().player
         self.enemy = enemy
-        self.weather_context = weather_context
         self.flee = False
         self.over = False
 
+    # método que recebe um objeto e sua ação, e utiliza essas informações para afetar os demais
     def affect(self, inflictor, effect):
         if inflictor is self.player:
             self.enemy.current_hp -= effect['damage']

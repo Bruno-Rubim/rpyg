@@ -1,7 +1,6 @@
 import time
 
 class UI():
-    
     def request_number_choice(min, max):
         option = input('\n> ')
         try:

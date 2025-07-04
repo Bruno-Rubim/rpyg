@@ -1,7 +1,12 @@
 from atack.model import Atack, Stab, FireBreath, Shoot, PunchHolder, Spit
 from entity.model import Entity
 
+# Factory
+# Abstrai a construção de objetos entre várias subclasses
+
 class AtackFactory:
+    # a partir de uma variável seletor "name" a factory decide qual
+    # classe será construída e retornada
     def get_atack(name: str, atacker: Entity, battle) -> Atack:
         match name:
             case 'stab':

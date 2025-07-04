@@ -9,18 +9,24 @@ from weather.context import WeatherContext
 from weather.strategies import get_rand_strat
 import random
 
+# Singleton
+# Abstrai o gerenciamento de uma instância única e consistência de estado
+
 class Game:
     instance = None
     initialized = False
 
     def __new__(cls, *args, **kwargs):
         if cls.instance is None:
+        # se quando instanciar a classe não houver uma insância salva
+        # a classe cria uma nova e salva em uma variável da classe
             cls.instance = super(Game, cls).__new__(cls)
         return cls.instance
+        # caso contrário ela retorna a mesma instância
 
     def __init__(self):
         if Game.initialized:
-            return
+            return 
         Game.initialized = True
         self.player = None
         self.username = None
@@ -54,28 +60,30 @@ class Game:
         UI.print_text(f"\n{target.name} is at {target.current_hp} hp")
 
     def do_weather_efect(self, weather_context: WeatherContext, battle: Battle):
-        self.rand_weather_strat(battle)
+        self.rand_weather_strat(weather_context)
         entities = battle.get_entities()
         weather_context.do_strat(entities)
 
-    def rand_weather_strat(self, battle: Battle):
-        r = random.randint(0, 9)
-        if r == 9:
-            battle.weather_context.set_strat(get_rand_strat())
+    def rand_weather_strat(self, weather_context: WeatherContext):
+        r = random.randint(0, 1)
+        if r == 0:
+            weather_context.set_strat(get_rand_strat(battle))
 
     def battle_turn(self, battle, enemy: Enemy, weather_effect):
         if battle.over :
             return
         else:
-            self.player.battle_turn()
-            self.print_stats(enemy)
+            self.print_stats(self.player)
+            self.player.add_damage = 0
             self.do_weather_efect(weather_effect, battle)
+            self.player.battle_turn()
         if battle.over :
             return
         else:
-            enemy.battle_turn()
-            self.print_stats(self.player)
+            self.print_stats(enemy)
+            enemy.add_damage = 0
             self.do_weather_efect(weather_effect, battle)
+            enemy.battle_turn()
 
     def start_battle(self, enemy_name : str):
         enemy = NpcFactory.get_npc(enemy_name)
@@ -90,7 +98,3 @@ class Game:
     def start(self):
         self.set_new_player()
         self.start_battle('chertzer')
-
-    def save(self):
-        ...
-

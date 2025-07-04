@@ -3,8 +3,12 @@ from elements import element_efect, ElementResult
 from typing import final
 from entity.model import Entity
 
-# Template
-# Classe abstrata de ataque com uma sequência padrão de métodos que podem ser substituidas pelas classes que à herdam
+# Template method
+# Abstrai o comportamento comum entre classes
+# Possúi uma classe abstrata de ataque com uma sequência padrão de métodos
+# que podem ser substituidas pelas classes que à herdam
+# Além de um método com @final que é mantido padrão entre todas as subclasses
+
 class Atack(ABC):
     def __init__(self, 
             name: str,
@@ -46,9 +50,16 @@ class Atack(ABC):
         if self.reciever.current_hp <= 0:
             self.message += ', ending its life.'
 
+    def add_final_dmg(self):
+        self.final_damage += self.atacker.add_damage
+
+    # O método perform é @final, não podendo ser subscrito resultando em uma sequência que deve ser
+    # seguida por todas as subclasses
+    # os métodos restantes podem ser substiduidos para conterem lógicas internas diferentes
     @final
     def perform(self):
         self.calc_damage()
+        self.add_final_dmg()
         self.cause_effects()
         self.write_message()
         return {
