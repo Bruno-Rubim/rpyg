@@ -38,14 +38,14 @@ class Enemy(Npc):
         super().__init__(name, actions, type, base_hp, elements)
 
     def battle_turn(self):
-        if self.current_hp < 1:
+        if self.current_hp <= 0:
             UI.print_text(f"\n{self.name} has perished.\n")
             self.battle.over = True
             return
 
         actions = [*self.actions]
         choice = random.randint(0, len(actions) - 1)
-        UI.print_text(f"{self.name} chose to {actions[choice]}\n")
+        UI.print_text(f"\n{self.name} chose to {actions[choice]}\n")
         action = actions[choice]
         match action:
             case "run":

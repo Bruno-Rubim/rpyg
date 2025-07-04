@@ -3,6 +3,7 @@ from interface import UI
 from entity.player.model import Player
 from entity.npc.factory import NpcFactory
 from entity.npc.model import Enemy
+from entity.model import Entity
 from battle.model import Battle
 
 class Game:
@@ -46,15 +47,20 @@ class Game:
         self.set_player_object(option - 1)
         UI.print_text(f"""You chose "{self.player.class_name}".\nInteresting... """)
 
+    def printStats(self, target: Entity):
+        UI.print_text(f"\n{target.name} is at {target.current_hp} hp")
+
     def battle_turn(self, battle, enemy: Enemy):
         if battle.over :
             return
         else:
             self.player.battle_turn()
+            self.printStats(enemy)
         if battle.over :
             return
         else:
             enemy.battle_turn()
+            self.printStats(self.player)
 
     def start_battle(self, enemy_name : str):
         enemy = NpcFactory.get_npc(enemy_name)
@@ -67,7 +73,7 @@ class Game:
 
     def start(self):
         self.set_new_player()
-        self.start_battle('mini_turret')
+        self.start_battle('chertzer')
 
     def save(self):
         ...

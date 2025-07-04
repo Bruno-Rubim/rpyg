@@ -1,4 +1,4 @@
-from atack.model import Atack, Stab, FireBreath, Shoot, PunchHolder
+from atack.model import Atack, Stab, FireBreath, Shoot, PunchHolder, Spit
 from entity.model import Entity
 
 class AtackFactory:
@@ -27,6 +27,13 @@ class AtackFactory:
             
             case 'punch_holder':
                 atack = PunchHolder(
+                    atacker = atacker,
+                    battle = battle,
+                )
+                return atack
+            
+            case 'spit':
+                atack = Spit(
                     atacker = atacker,
                     battle = battle,
                 )

@@ -98,6 +98,19 @@ class FireBreath(Atack):
             disadvantage_mult = 0.2
         )
 
+class Spit(Atack):
+    def __init__(self, 
+        atacker, 
+        battle, 
+        ):
+        super().__init__(
+            atacker = atacker, 
+            battle = battle,
+            name = "spit", 
+            damage = 2,
+            element = "water",
+        )
+
 class Shoot(Atack):
     def __init__(self, 
         atacker, 
