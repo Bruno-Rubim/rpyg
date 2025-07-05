@@ -39,12 +39,22 @@ class Mist(WeatherEffect):
     def affect(self, entities):
         for entity in entities:
             if 'ghost' in entity.elements:
-                entity.add_damage += 1
+                entity.add_damage += 2
 
+class Still(WeatherEffect):
+    def __init__(self, battle):
+        event_desc = 'the weather is still'
+        efect_desc = 'normal creatures get stronger'
+        super().__init__(battle, event_desc, efect_desc)
+
+    def affect(self, entities):
+        for entity in entities:
+            if 'normal' in entity.elements:
+                entity.add_damage += 1
 
 # função para escolher estratégia em aleatório, não relacionada com
 # o padrão de projeto
 def get_rand_strat(battle) -> WeatherEffect:
-    strat_list = [Rain(battle), Mist(battle)]
+    strat_list = [Rain(battle), Mist(battle), Still(battle)]
     r = random.randint(0, len(strat_list) - 1)
     return strat_list[r]

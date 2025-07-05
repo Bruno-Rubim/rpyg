@@ -60,11 +60,11 @@ class Game:
         UI.print_text(f"\n{target.name} is at {target.current_hp} hp")
 
     def do_weather_efect(self, weather_context: WeatherContext, battle: Battle):
-        self.rand_weather_strat(weather_context)
+        self.rand_weather_strat(weather_context, battle)
         entities = battle.get_entities()
         weather_context.do_strat(entities)
 
-    def rand_weather_strat(self, weather_context: WeatherContext):
+    def rand_weather_strat(self, weather_context: WeatherContext, battle):
         r = random.randint(0, 1)
         if r == 0:
             weather_context.set_strat(get_rand_strat(battle))
@@ -88,7 +88,7 @@ class Game:
     def start_battle(self, enemy_name : str):
         enemy = NpcFactory.get_npc(enemy_name)
         weather_context = WeatherContext()
-        battle = Battle(enemy, weather_context)
+        battle = Battle(enemy)
         self.player.battle = battle
         enemy.battle = battle
         UI.print_text(f"\nA {enemy.name} challenges you")

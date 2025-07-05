@@ -11,7 +11,7 @@ class WeatherContext():
         self.strategy: WeatherEffect = None
 
     def set_strat(self, strategy: WeatherEffect):
-        UI.print_text('\n' + strategy.event_desc)
+        UI.print_text('\n~~ ' + strategy.event_desc)
         self.strategy =  strategy
 
     def do_strat(self, entities):
